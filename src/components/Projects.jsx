@@ -1,44 +1,53 @@
-import { useGithubProjects, GITHUB_USERNAME } from "../hooks/useGithubProjects";
 import { useInView } from "../hooks/useInView";
 import "./Projects.css";
 
-// Language → colour mapping (mirrors GitHub's language colours)
-const LANG_COLORS = {
-  JavaScript:  "#f1e05a",
-  TypeScript:  "#3178c6",
-  Python:      "#3572A5",
-  Java:        "#b07219",
-  Dart:        "#00B4AB",
-  Swift:       "#F05138",
-  Kotlin:      "#A97BFF",
-  "C#":        "#178600",
-  "C++":       "#f34b7d",
-  Go:          "#00ADD8",
-  Rust:        "#dea584",
-  Ruby:        "#701516",
-  PHP:         "#4F5D95",
-  HTML:        "#e34c26",
-  CSS:         "#563d7c",
-  Shell:       "#89e051",
-  Vue:         "#41b883",
-  Svelte:      "#ff3e00",
-};
-
-function LangDot({ lang }) {
-  const color = LANG_COLORS[lang] || "#8892a4";
-  return (
-    <span className="lang-dot">
-      <span className="lang-dot__circle" style={{ background: color }} />
-      <span className="lang-dot__name">{lang}</span>
-    </span>
-  );
-}
+const PROJECTS = [
+  {
+    name: "Goalie",
+    subtitle: "Sports Tournament Manager",
+    desc: "Full-stack web platform for managing sports tournaments, teams, and match schedules. Built with Spring Boot and Thymeleaf with a MySQL database — 99 commits and collaborative development with a teammate.",
+    stack: ["Spring Boot", "Java", "Thymeleaf", "MySQL", "REST APIs"],
+    features: ["Tournament & team management", "Match scheduling system", "Collaborative development"],
+    emoji: "🏆",
+    gradient: "linear-gradient(135deg,#1a0533,#3b0764)",
+    glowColor: "#7C3AED",
+    github: "https://github.com/Jud-e/Goalie",
+    demo: null,
+  },
+  {
+    name: "Pharm",
+    subtitle: "Doctor-Patient Appointment App",
+    desc: "Cross-platform Flutter app for booking and managing doctor-patient appointments. Features user authentication and a clean mobile interface built with Dart and Node.js on the backend.",
+    stack: ["Flutter", "Dart", "Node.js", "MongoDB"],
+    features: ["User authentication", "Appointment booking", "Cross-platform mobile"],
+    emoji: "🔐",
+    gradient: "linear-gradient(135deg,#052e16,#064e3b)",
+    glowColor: "#059669",
+    github: "https://github.com/Jud-e/pharm",
+    demo: null,
+  },
+  {
+    name: "Country Details",
+    subtitle: "Flutter REST API Integration",
+    desc: "Flutter app demonstrating clean API integration and JSON data handling. Fetches real-time country data — population, capital, region — and displays it in a responsive, user-friendly UI.",
+    stack: ["Flutter", "Dart", "REST API"],
+    features: ["Live API data fetching", "JSON parsing & modeling", "Responsive clean UI"],
+    emoji: "🌍",
+    gradient: "linear-gradient(135deg,#0c1445,#1e3a8a)",
+    glowColor: "#3B82F6",
+    github: "https://github.com/Jud-e/country_details",
+    demo: "https://appetize.io/app/m35j5xmc44f6z3lua7vd6jl3hu",
+  },
+];
 
 function ProjectCard({ project }) {
   return (
     <div className="project-card">
-      {/* Dark gradient header */}
       <div className="project-card__header" style={{ background: project.gradient }}>
+        <div
+          className="project-card__glow"
+          style={{ background: project.glowColor }}
+        />
         <span className="project-card__emoji">{project.emoji}</span>
       </div>
 
@@ -57,37 +66,33 @@ function ProjectCard({ project }) {
         <p className="project-card__subtitle">{project.subtitle}</p>
         <p className="project-card__desc">{project.desc}</p>
 
-        {/* All languages like GitHub */}
-        {project.languages.length > 0 && (
-          <div className="project-card__languages">
-            {project.languages.map((lang) => (
-              <LangDot key={lang} lang={lang} />
-            ))}
-          </div>
-        )}
+        <div className="project-card__tags">
+          {project.stack.map((t) => (
+            <span key={t} className="project-card__tag">{t}</span>
+          ))}
+        </div>
 
-        <div className="project-card__meta">
-          <span className="project-card__meta-item">⭐ {project.stars}</span>
-          <span className="project-card__meta-item">🍴 {project.forks}</span>
-          {project.demo && (
-            <a href={project.demo} target="_blank" rel="noreferrer" className="project-card__demo">
+        <div className="project-card__features">
+          {project.features.map((f) => (
+            <div key={f} className="project-card__feature">
+              <span className="project-card__feat-dot" />
+              {f}
+            </div>
+          ))}
+        </div>
+
+        {project.demo && (
+          <div className="project-card__footer">
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noreferrer"
+              className="project-card__demo"
+            >
               Live Demo →
             </a>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SkeletonCard() {
-  return (
-    <div className="project-card project-card--skeleton">
-      <div className="skeleton-header" />
-      <div className="project-card__body">
-        <div className="skeleton-line skeleton-line--short" />
-        <div className="skeleton-line" />
-        <div className="skeleton-line skeleton-line--medium" />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -95,47 +100,30 @@ function SkeletonCard() {
 
 export default function Projects() {
   const [ref, inView] = useInView();
-  const { projects, loading, error } = useGithubProjects(GITHUB_USERNAME);
 
   return (
     <section id="projects" className="projects" ref={ref}>
       <div className={`projects__inner fade-up ${inView ? "fade-up--visible" : ""}`}>
         <div className="glow-line" />
-        <p className="section-label">Latest from GitHub</p>
+        <p className="section-label">What I've built</p>
         <h2 className="section-title">
-          Projects<span className="accent">.</span>
+          Featured <span className="accent">Projects</span>
         </h2>
-        <p className="projects__subtitle">
-          Auto-updated from{" "}
-          <a
-            href={`https://github.com/${GITHUB_USERNAME}`}
-            target="_blank"
-            rel="noreferrer"
-            className="projects__github-link"
-          >
-            @{GITHUB_USERNAME}
-          </a>{" "}
-          — always showing the 3 most recently updated repos.
-        </p>
-
-        {error && (
-          <div className="projects__error">⚠️ Couldn't load GitHub repos: {error}</div>
-        )}
 
         <div className="projects__grid">
-          {loading
-            ? [1, 2, 3].map((n) => <SkeletonCard key={n} />)
-            : projects.map((p) => <ProjectCard key={p.name} project={p} />)}
+          {PROJECTS.map((p) => (
+            <ProjectCard key={p.name} project={p} />
+          ))}
         </div>
 
         <div className="projects__footer">
           <a
             className="btn-outline"
-            href={`https://github.com/${GITHUB_USERNAME}?tab=repositories`}
+            href="https://github.com/Jud-e?tab=repositories"
             target="_blank"
             rel="noreferrer"
           >
-            View all repositories →
+            View all on GitHub →
           </a>
         </div>
       </div>

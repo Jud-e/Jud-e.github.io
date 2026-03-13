@@ -4,7 +4,7 @@ import "./About.css";
 const FACTS = [
   { label: "Location", value: "Canada", icon: "📍" },
   { label: "Education", value: "Computer Science", icon: "🎓" },
-  { label: "Focus", value: "Web & Mobile Development", icon: "💡" },
+  { label: "Focus", value: "Web & Mobile, Software Development", icon: "💡" },
   { label: "Status", value: "Open to Junior Dev roles", icon: "✅" },
 ];
 
