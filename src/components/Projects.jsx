@@ -3,6 +3,18 @@ import "./Projects.css";
 
 const PROJECTS = [
   {
+  name: "DevBrief",
+  subtitle: "AI-Powered Tech News Digest",
+  desc: "Full-stack news platform that fetches live tech articles and enriches them with AI-generated summaries, topic tags, and sentiment scores using the Claude API. Features JWT auth, bookmarks, and an editorial layout.",
+  stack: ["React", "TypeScript", "Node.js", "Express", "Claude API"],
+  features: ["AI article summarization", "Live news feed with categories", "JWT auth & bookmarks"],
+  emoji: "⬡",
+  gradient: "linear-gradient(135deg,#052e16,#14532d)",
+  glowColor: "#16a34a",
+  github: "https://github.com/Jud-e/devbrief",
+  demo: "https://devbrief-sigma.vercel.app",
+},
+  {
     name: "Goalie",
     subtitle: "Sports Tournament Manager",
     desc: "Full-stack web platform for managing sports tournaments, teams, and match schedules. Built with Spring Boot and Thymeleaf with a MySQL database — 99 commits and collaborative development with a teammate.",
@@ -25,18 +37,6 @@ const PROJECTS = [
     glowColor: "#059669",
     github: "https://github.com/Jud-e/pharm",
     demo: null,
-  },
-  {
-    name: "Country Details",
-    subtitle: "Flutter REST API Integration",
-    desc: "Flutter app demonstrating clean API integration and JSON data handling. Fetches real-time country data — population, capital, region — and displays it in a responsive, user-friendly UI.",
-    stack: ["Flutter", "Dart", "REST API"],
-    features: ["Live API data fetching", "JSON parsing & modeling", "Responsive clean UI"],
-    emoji: "🌍",
-    gradient: "linear-gradient(135deg,#0c1445,#1e3a8a)",
-    glowColor: "#3B82F6",
-    github: "https://github.com/Jud-e/country_details",
-    demo: "https://appetize.io/app/m35j5xmc44f6z3lua7vd6jl3hu",
   },
 ];
 
